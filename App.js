@@ -1,31 +1,37 @@
 import { GrammarlyEditorPlugin } from '@grammarly/editor-sdk-react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View ,TextBase,TextInput} from 'react-native';
+import { StyleSheet, Text, View ,TextBase,TextInput,Button} from 'react-native';
 import React,{useEffect,useState} from 'react';
+import { createNavigationContainerRef, NavigationContainer, useNavigation } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Components from './components/Components';
+import Welcome from './Welcome';
 
 
-export default function App() {
+
+export default function App({Navigation}) {
+  const[email,setEmail] = useState("")
+  const[password,setPassword] = useState("")
+  const Stack=createNativeStackNavigator()
+  // const Navigation=useNavigation();
+  
+
+
   return (
+    
+     
     <View style={styles.container}>
-      <Text>Welcome to Grammer Correction App</Text>
-     <GrammarlyEditorPlugin clientId='client_Dn1ZCRrauR12cEkAcUgXaj'>
-      
-    <TextInput multiline    style={
-      {
-        maxHeight: 200,
-        paddingBottom: 30,
-      }
-      
-    } 
-    onblur={onblur}
     
-    />
     
+      <NavigationContainer>
+      <Stack.Navigator>
+      <Stack.Screen name="Home" component={Welcome}/>
+      <Stack.Screen name="Grammarly" component={Components}/>
+      </Stack.Navigator>
+      </NavigationContainer>
       
-  </GrammarlyEditorPlugin>
-      
-      <StatusBar style="auto" />
     </View>
+
   );
 }
 
